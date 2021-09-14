@@ -1,0 +1,12 @@
+.nav-wrapper {
+    background-color: blue;
+    color: white;
+    padding: 1.5em;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-item {
+    margin: 0.5em;
+    color: white;
+}

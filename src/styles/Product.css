@@ -1,0 +1,28 @@
+.prod-container {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    justify-content: center;
+}
+
+.product {
+    margin: 3%;
+    flex-basis: 20%;
+    padding: 3%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.prod-image {
+    height: 50%;
+    width: 60%;
+    display: block;
+    margin: auto;
+}
+
+.prod-btn {
+    background-color: blue;
+    border: blue;
+    color: white;
+    padding: 2%;
+    cursor: pointer;
+}
