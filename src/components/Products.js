@@ -2,15 +2,13 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import '../styles/Product.css'
 import {useDispatch, useSelector} from "react-redux";
-import {setCount, setItem} from "../redux/actions/actions";
+import {setCount, setItem, setCartTotal} from "../redux/actions/actions";
 
 function Products() {
   const [error, setError] = useState(null);
   const [isLoaded, setLoaded] = useState(false);
   const [products, setProducts] = useState([]);
-  const [cartTotal, setCartTotal] = useState(0);
   let cart_count = useSelector((state) => state.cartCount.cart_count);
-  let cart_items = useSelector((state) => state.cartCount.cart_items);
   console.log("yo", cart_count);
   const dispatch = useDispatch();
 
@@ -31,18 +29,19 @@ function Products() {
   }, [])
 
   function addCart(id){
-    // setCartTotal(cartTotal + 1);
     console.log(cart_count);
     cart_count += 1;
     dispatch(setCount(cart_count));
-    let cart_item;
+    let cart_item, total;
     for(let i=0; i<products.length; i++)
-      if(products[i].id==id){
+      if(products[i].id===id){
         cart_item = products[i];
         products[i].qty = 1;
+        total = cart_item.price * cart_item.qty;
       }
     console.log(cart_item);
     dispatch(setItem(cart_item));
+    dispatch(setCartTotal(total));
   }
 
   if(error) {
@@ -59,7 +58,7 @@ function Products() {
           {products.map(el => (
             <li key={el.id} className="product">
               <Link to={`product/${el.id}`}>
-                <img src={el.image} className="prod-image"></img>
+                <img src={el.image} className="prod-image" alt="the product"></img>
                 <h3>{el.title}</h3>
                 <h1>${el.price}</h1>
               </Link>

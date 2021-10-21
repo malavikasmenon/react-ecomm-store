@@ -1,6 +1,5 @@
 import {useSelector, useDispatch} from "react-redux";
-import { removeCartItem, setCount } from "../redux/actions/actions";
-import { useEffect, useState } from "react";
+import { removeCartItem, setCount, setCartTotal } from "../redux/actions/actions";
 import "../styles/Product.css";
 
 function Cart() {
@@ -8,26 +7,17 @@ function Cart() {
   const dispatch = useDispatch();
   let cart_count = useSelector((state) => state.cartCount.cart_count)
   let cart_items = useSelector((state) => state.cartCount.cart_items)
-  const [total, setTotal] = useState(0);
-
+  let cart_total = useSelector((state) => state.cartCount.cart_total)
 
   function removeFromCart(id) {
     console.log(id);
-    let newItems = cart_items.filter((el) => el.id!=id);
-    console.log('new', newItems);
+    let item = cart_items.filter(el => el.id===id);
+    let newItems = cart_items.filter((el) => el.id!==id);
     dispatch(removeCartItem(newItems));
     dispatch(setCount(cart_count-1));
+    let total_update = -(item.qty * item.price)
+    dispatch(setCartTotal(total_update));
   }
-
-  useEffect(() => {
-    let total_amount = 0;
-    cart_items.forEach(el => {
-      total_amount += (el.price * el.qty)
-    });
-    total_amount = total_amount.toFixed(2);
-    console.log(total_amount);
-    setTotal(total_amount);
-  })
 
   return ( 
     <div>
@@ -37,7 +27,7 @@ function Cart() {
       <ul className="prod-container">
         {cart_items.map(el => (
           <li key={el.id} className="product">
-            <img src={el.image} className="prod-image"></img>
+            <img src={el.image} className="prod-image" alt="product"></img>
             <h3>{el.title}</h3>
             <h1>${el.price}</h1>
             <h3>Qty: {el.qty}</h3>
@@ -46,7 +36,7 @@ function Cart() {
         ))}
       </ul> 
       <div className="total">
-        <h1>Total Amount : ${total}</h1>
+        <h1>Total Amount : ${cart_total.toFixed(2)}</h1>
         <button className="prod-btn" onClick={()=>alert("Feature will be implemented shortly!")}>Proceed to checkout</button>
       </div>
     </div>

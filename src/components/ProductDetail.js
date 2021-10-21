@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import '../styles/Product.css'
 import { useSelector, useDispatch } from "react-redux";
-import { setItem, setCount } from "../redux/actions/actions";
+import { setItem, setCount, setCartTotal } from "../redux/actions/actions";
 
 function ProductDetail(props) {
 
@@ -9,7 +9,6 @@ function ProductDetail(props) {
   const [isLoading, setLoading] = useState(true);
   const productId = props.match.params.productId;
   const dispatch = useDispatch();
-  const isMounted = useRef(false);
   let cart_count = useSelector((state) => state.cartCount.cart_count);
 
   useEffect(() => {
@@ -38,6 +37,8 @@ function ProductDetail(props) {
     let cart_item = product;
     cart_item.qty = e.target.count.value;
     dispatch(setItem(cart_item));
+    let total = cart_item.qty * cart_item.price;
+    dispatch(setCartTotal(total));
   }
 
   if (isLoading) {
@@ -47,18 +48,19 @@ function ProductDetail(props) {
     return (
       <div className="prod-detail-container">
         <div className="prod-detail-image">
-          <img src={product.image} width="500px"></img>
+          <img src={product.image} width="500px" alt="the product"></img>
         </div>
         <div className="prod-description">
           <h1>{product.title}</h1>
           <h3>Product Description: </h3>
           <p>{product.description}</p>
           <h3>Average rating of {product.rating.rate} from {product.rating.count} customers</h3>
+          <h3>Price: ${product.price}</h3>
           <form onSubmit={addToCart}>
             <input type='number' name="count" min='1' max='10' defaultValue='1' />
             <input type='submit' value="Add to Cart" />
           </form>
-          <ul style={{marginTop: '10%', color: '#5C5B5B'}}>
+          <ul style={{marginTop: '5%', color: '#5C5B5B'}}> 
             <li>Cash on Delivery Option</li>
             <li>Free Returns Available</li>
             <li>Refunds Allowed upto 10 Days post delivery</li>

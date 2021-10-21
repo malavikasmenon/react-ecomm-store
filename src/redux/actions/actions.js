@@ -20,3 +20,10 @@ export const removeCartItem = (newCartItems) => {
         payload: newCartItems
     }
 }
+
+export const setCartTotal = (cartChange) => {
+    return {
+        type: "SET_CART_TOTAL",
+        payload: cartChange
+    }
+}
