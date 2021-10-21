@@ -12,10 +12,13 @@ function Cart() {
   function removeFromCart(id) {
     console.log(id);
     let item = cart_items.filter(el => el.id===id);
+    console.log(item);
     let newItems = cart_items.filter((el) => el.id!==id);
     dispatch(removeCartItem(newItems));
     dispatch(setCount(cart_count-1));
-    let total_update = -(item.qty * item.price)
+    console.log(item[0].qty, item[0].price);
+    let total_update = -(item[0].qty * item[0].price)
+    console.log(total_update);
     dispatch(setCartTotal(total_update));
   }
 
