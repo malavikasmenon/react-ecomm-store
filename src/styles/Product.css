@@ -12,14 +12,13 @@
 
 .product {
     margin: 3%;
-    flex-basis: 20%;
     padding: 3%;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     color: black;
 }
 
 .prod-image {
-    height: 50%;
+    max-height: 50%;
     width: 60%;
     display: block;
     margin: auto;
@@ -35,12 +34,14 @@
 
 .prod-detail-container {
     display: flex;
+    flex-wrap: wrap;
     margin: 5% 5%;
 }
 
 .prod-detail-image {
     margin-right: 10%;
     margin-left: 10%;
+    width: 500px;
 }
 
 .prod-description {
@@ -58,6 +59,31 @@
 .hero-img {
     margin-top: 5%;
     margin-left: 5%;
+}
+
+@media screen and (max-width: 767px) {
+    .hero-img {
+        width: 80%;
+        margin-bottom: 10%;
+    }
+    .input-dropdown {
+        display: block;
+        margin: 3% auto !important;
+        margin-bottom: 5%;
+    }
+    .prod-detail-container {}
+    .prod-detail-image {
+        max-width: 50% !important;
+    }
+    .prod-description {
+        max-width: 90% !important;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .product {
+        flex-basis: 20%;
+    }
 }
 
 .hero-text {

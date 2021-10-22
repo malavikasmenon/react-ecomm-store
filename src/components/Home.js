@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 
 function Home() {
   return ( 
-    <div style={{display:'flex'}}>
+    <div style={{display:'flex', flexWrap: 'wrap'}}>
       <img src="/hero-img.svg" className="hero-img" alt="banner illustration"/>
       <div className="hero-text">
         <h3>Have a seamless shopping experience, here at WindowShop!</h3>

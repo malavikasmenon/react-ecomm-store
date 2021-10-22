@@ -47,9 +47,7 @@ function ProductDetail(props) {
   else {
     return (
       <div className="prod-detail-container">
-        <div className="prod-detail-image">
-          <img src={product.image} width="500px" alt="the product"></img>
-        </div>
+        <img src={product.image} alt="the product" className="prod-detail-image"></img>
         <div className="prod-description">
           <h1>{product.title}</h1>
           <h3>Product Description: </h3>
